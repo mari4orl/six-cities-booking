@@ -1,5 +1,5 @@
 import { Status } from '../../const';
-import { fakeFavorite, fakeFavoriteOffer, fakeId, fakeNearPlaces, fakeOffer } from '../../utils/mocks';
+import { fakeFavorite, fakeFavoriteOffer, fakeId, fakePreviewOffer, fakeOffer, fakeFavoritePreviewOffer } from '../../utils/mocks';
 import { fetchNearPlacesAction, fetchOfferAction, postFavoriteStatusAction } from '../api-actions';
 import { dropOffer, offerData } from './offer-data';
 
@@ -38,7 +38,7 @@ describe('OfferData Slice', () => {
     const initialState = {
       fetchingStatus: Status.Idle,
       offer: fakeOffer,
-      nearPlaces: [fakeNearPlaces],
+      nearPlaces: [fakePreviewOffer],
       fetchingNearPlacesStatus: Status.Idle
     };
 
@@ -108,16 +108,16 @@ describe('OfferData Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "nearPlaces" with "fakeNearPlaces" and "fetchingNearPlacesStatus" to "Success" with "fetchNearPlacesAction.fulfilled" action', () => {
+  it('should set "nearPlaces" with "fakePreviewOffer" and "fetchingNearPlacesStatus" to "Success" with "fetchNearPlacesAction.fulfilled" action', () => {
     const expectedState = {
       fetchingStatus: Status.Idle,
       offer: null,
-      nearPlaces: [fakeNearPlaces],
+      nearPlaces: [fakePreviewOffer],
       fetchingNearPlacesStatus: Status.Success
     };
 
     const result = offerData.reducer(undefined, fetchNearPlacesAction.fulfilled(
-      [fakeNearPlaces], '', fakeId)
+      [fakePreviewOffer], '', fakeId)
     );
 
     expect(result).toEqual(expectedState);
@@ -145,7 +145,7 @@ describe('OfferData Slice', () => {
     };
 
     const result = offerData.reducer(initialState, postFavoriteStatusAction.fulfilled(
-      fakeFavoriteOffer, '', fakeFavorite)
+      fakeFavoritePreviewOffer, '', fakeFavorite)
     );
 
     expect(result.offer?.isFavorite).toBe(true);

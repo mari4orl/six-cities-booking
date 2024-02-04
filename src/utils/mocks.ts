@@ -47,7 +47,7 @@ function getFakeOffer(favorite: {favorite: boolean}): OfferType {
   };
 }
 
-function getFakeNearPlaces(favorite: {favorite: boolean}): PreviewOfferType {
+function getFakePreviewOffer(favorite: {favorite: boolean}): PreviewOfferType {
   return {
     city: {
       location: {
@@ -83,6 +83,17 @@ export const fakeFavorite = {
   status: 1,
 };
 
+export const fakeNotFavorite = {
+  id: fakeId,
+  status: 0,
+};
+
 export const fakeOffer = getFakeOffer({favorite: false});
-export const fakeNearPlaces = getFakeNearPlaces({favorite: false});
+export const fakePreviewOffer = getFakePreviewOffer({favorite: false});
+export const fakeFavoritePreviewOffer = getFakePreviewOffer({favorite: true});
 export const fakeFavoriteOffer = getFakeOffer({favorite: true});
+
+export const noFavoriteOffer = {
+  ...fakeFavoritePreviewOffer,
+  isFavorite: false,
+};
